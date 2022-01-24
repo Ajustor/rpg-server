@@ -1,33 +1,32 @@
-export type UserRecord = User & {
-  externalId?: string
-}
-
-export type CreateUser = Omit<
-  User,
-  'id' | 'active' | 'provider' | 'createdAt' | 'updatedAt'
-> & {
-  id?: string
-  password?: string
-}
+// @ts-ignore
+import { User as MongooseUser } from 'mongoose'
 
 export type User = {
   id: string
   username: string
-  email: string
-  language: string
-  password?: string
-  active: boolean
-  createdAt: string
-  updatedAt: string | null
-  lastConnection?: string | null
+  externalId: string
+  player?: string
 }
 
-export type UserFilter = {
-  limit?: number
-  offset?: number
-  sortBy?: string
-  sort?: string
-  email?: string
+export type CreateUser = {
+  username: string
+  password: string
+}
+
+export type UserSource = {
+  username: string
+  player?: string
+  createdAt: Date
+  updatedAt: Date
+} & MongooseUser
+
+export type UserRecord = {
+  externalId: string
+  username: string
+  player?: string
+}
+
+export interface UserFilter {
   username?: string
-  active?: boolean
+  externalId?: string
 }

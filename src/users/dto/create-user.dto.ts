@@ -1,4 +1,5 @@
-import { IsBoolean, IsEmail, IsString } from 'class-validator'
+import { IsBoolean, IsEmail, IsString, Matches } from 'class-validator'
+import { Match } from '../decorator/match.decorator'
 import { CreateUser } from '../interfaces/user.interface'
 
 export class CreateUserDto implements CreateUser {
@@ -15,5 +16,10 @@ export class CreateUserDto implements CreateUser {
   language!: string
 
   @IsString()
+  @Matches(/^(?=.*[A-Z])(?=.*[#?!@$%^&*-\/])(?=.*[0-9]).{10,}$/)
   password!: string
+
+  @IsString()
+  @Match('password')
+  passwordConfirmation!: string
 }

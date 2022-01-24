@@ -1,4 +1,4 @@
-import convict from 'convict'
+import * as convict from 'convict'
 import * as dotenv from 'dotenv'
 import { version } from '../../package.json'
 
