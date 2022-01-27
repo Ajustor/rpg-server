@@ -1,6 +1,8 @@
-import { Schema } from 'mongoose'
+import { model, Schema } from 'mongoose'
+import { v4 } from 'uuid'
 
 export const PlayerSchema = new Schema({
+  externalId: { type: String, unique: true, default: v4() },
   strength: { type: Number, required: true },
   intelligence: { type: Number, required: true },
   agility: { type: Number, required: true },
@@ -23,3 +25,5 @@ PlayerSchema.pre('save', function (next) {
     return next(error)
   }
 })
+
+export const PlayerModel = model('Player', PlayerSchema)

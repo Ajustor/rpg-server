@@ -70,6 +70,12 @@ const config = convict({
     default: 4,
     env: 'SERVER_WORKER_NUMBER',
   },
+  JWT_SECRET: {
+    doc: 'Secret for JWT',
+    format: String,
+    default: '',
+    env: 'JWT_SECRET',
+  },
 })
 
 config.set('APP_VERSION', version)

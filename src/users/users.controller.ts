@@ -1,13 +1,6 @@
 import { Auth } from '@/auth/auth.decorator'
-import {
-  Body,
-  ConflictException,
-  Controller,
-  Get,
-  Param,
-  Post,
-} from '@nestjs/common'
-import { CreateUserDto } from './dto/create-user.dto'
+import { GetCurrentUser } from '@/users/decorator/get-current-user.decorator'
+import { Body, Controller, Delete, Get, Param } from '@nestjs/common'
 import { GetUserDto } from './dto/get-user.dto'
 import { User } from './interfaces/user.interface'
 import { UsersService } from './users.service'
@@ -17,24 +10,27 @@ import { UsersService } from './users.service'
 export class UsersController {
   constructor(private readonly service: UsersService) {}
 
-  @Post()
-  async createUser(@Body() user: CreateUserDto): Promise<User> {
-    const isExistingUser = await this.service.find({ username: user.username })
-
-    if (isExistingUser) {
-      throw new ConflictException('User with this username already exists')
-    }
-
-    return this.service.create(user)
-  }
-
   @Get()
-  async getAll(@Body() filter: GetUserDto): Promise<User[]> {
-    return this.service.getAll(filter)
+  async getAll(@Body() filter: GetUserDto): Promise<{ users: User[] }> {
+    const users = await this.service.getAll(filter)
+
+    return { users }
   }
 
   @Get(':id')
-  async get(@Param('id') id: string): Promise<User> {
-    return this.service.get(id)
+  async get(@Param('id') id: string): Promise<{ user: User }> {
+    const user = await this.service.get(id)
+
+    return { user }
+  }
+
+  @Delete(':id')
+  async delete(
+    @Param('id') id: string,
+    @GetCurrentUser() currentUser,
+  ): Promise<{ user: User }> {
+    const user = await this.service.deleteOne(id)
+
+    return { user }
   }
 }

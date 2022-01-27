@@ -1,11 +1,12 @@
+import { Player } from '@/class/Player'
+import { PlayerSource } from '@/players/interfaces/player.interface'
 // @ts-ignore
 import { User as MongooseUser } from 'mongoose'
 
 export type User = {
   id: string
   username: string
-  externalId: string
-  player?: string
+  player?: string | Player
 }
 
 export type CreateUser = {
@@ -15,7 +16,7 @@ export type CreateUser = {
 
 export type UserSource = {
   username: string
-  player?: string
+  player?: PlayerSource
   createdAt: Date
   updatedAt: Date
 } & MongooseUser

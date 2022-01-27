@@ -15,4 +15,11 @@ export class PlayersService {
 
     return createdPlayer.save()
   }
+
+  async deleteOne(id: string): Promise<Player> {
+    const player = await this.model.findOne({ _id: id })
+    player.remove()
+
+    return player
+  }
 }

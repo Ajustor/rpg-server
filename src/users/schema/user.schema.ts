@@ -1,7 +1,7 @@
 import { Schema } from 'mongoose'
 import { v4 } from 'uuid'
 
-export const UserSchema = new Schema({
+const UserSchema = new Schema({
   username: { type: String, unique: true, required: true },
   externalId: { type: String, unique: true, default: v4() },
   email: { type: String, unique: true, required: true },
@@ -21,3 +21,5 @@ UserSchema.pre('save', function (next) {
     return next(error)
   }
 })
+
+export { UserSchema }
