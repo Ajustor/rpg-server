@@ -4,6 +4,7 @@ import { AppController } from './app.controller'
 import { AppService } from './app.service'
 import { config } from './config/config'
 import { UsersModule } from './users/users.module'
+import { PlayersModule } from './players/players.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { UsersModule } from './users/users.module'
       }),
     }),
     UsersModule,
+    PlayersModule,
   ],
   controllers: [AppController],
   providers: [AppService],

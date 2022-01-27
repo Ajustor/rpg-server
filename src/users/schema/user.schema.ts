@@ -6,8 +6,6 @@ export const UserSchema = new Schema({
   externalId: { type: String, unique: true, default: v4() },
   email: { type: String, unique: true, required: true },
   password: { type: String, required: true },
-  token: { type: String, default: null },
-  tokenValidity: { type: Date, default: null },
   player: { type: Schema.Types.ObjectId, ref: 'Player', required: false },
   updatedAt: { type: Date, default: null },
   createdAt: { type: Date, default: Date.now },
