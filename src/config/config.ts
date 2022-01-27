@@ -2,7 +2,7 @@ import * as convict from 'convict'
 import * as dotenv from 'dotenv'
 import { version } from '../../package.json'
 
-dotenv.config({ path: '../../.env' })
+dotenv.config({ path: '.env' })
 
 const config = convict({
   APP_NAME: {

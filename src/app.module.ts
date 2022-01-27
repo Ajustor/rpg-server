@@ -12,15 +12,12 @@ import { UsersModule } from './users/users.module'
         uri: config.get('MONGODB_URI'),
         auth: config.get('DATABASE_USERNAME')
           ? {
-              user: config.get('DATABASE_USERNAME'),
+              username: config.get('DATABASE_USERNAME'),
               password: config.get('DATABASE_PASSWORD'),
             }
           : undefined,
         useNewUrlParser: true,
         useUnifiedTopology: true,
-        useCreateIndex: true,
-        useFindAndModify: false,
-        poolSize: 10,
       }),
     }),
     UsersModule,
