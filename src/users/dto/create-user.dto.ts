@@ -1,4 +1,4 @@
-import { IsEmail, IsString, Matches } from 'class-validator'
+import { IsEmail, IsOptional, IsString, Matches } from 'class-validator'
 import { Match } from '../decorator/match.decorator'
 import { CreateUser } from '../interfaces/user.interface'
 
@@ -10,6 +10,7 @@ export class CreateUserDto implements CreateUser {
   username!: string
 
   @IsString()
+  @IsOptional()
   language?: string
 
   @IsString()

@@ -1,4 +1,11 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common'
+import {
+  Body,
+  ConflictException,
+  Controller,
+  Get,
+  Param,
+  Post,
+} from '@nestjs/common'
 import { CreateUserDto } from './dto/create-user.dto'
 import { GetUserDto } from './dto/get-user.dto'
 import { User } from './interfaces/user.interface'
@@ -10,6 +17,12 @@ export class UsersController {
 
   @Post()
   async createUser(@Body() user: CreateUserDto): Promise<User> {
+    const isExistingUser = await this.service.find({ username: user.username })
+
+    if (isExistingUser) {
+      throw new ConflictException('User with this username already exists')
+    }
+
     return this.service.create(user)
   }
 

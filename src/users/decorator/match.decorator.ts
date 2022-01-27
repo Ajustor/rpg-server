@@ -20,7 +20,7 @@ export function Match(property: string, validationOptions?: ValidationOptions) {
     registerDecorator({
       target: object.constructor,
       propertyName,
-      options: validationOptions,
+      options: { ...validationOptions, message: 'Passwords does not match' },
       constraints: [property],
       validator: MatchConstraint,
     })
