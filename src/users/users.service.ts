@@ -24,6 +24,12 @@ export class UsersService {
     return UsersMapper.toDomain(user)
   }
 
+  async findOne(filter: Record<string, any>): Promise<UserRecord | null> {
+    const user = await this.model.findOne(filter)
+
+    return user
+  }
+
   async getAll(by: Record<string, any>): Promise<User[]> {
     const users = await this.model.find(by)
 

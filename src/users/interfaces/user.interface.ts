@@ -23,6 +23,7 @@ export type UserSource = {
 export type UserRecord = {
   externalId: string
   username: string
+  password: string
   player?: string
 }
 

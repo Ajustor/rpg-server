@@ -1,3 +1,4 @@
+import { Auth } from '@/auth/auth.decorator'
 import {
   Body,
   ConflictException,
@@ -12,6 +13,7 @@ import { User } from './interfaces/user.interface'
 import { UsersService } from './users.service'
 
 @Controller('users')
+@Auth()
 export class UsersController {
   constructor(private readonly service: UsersService) {}
 
