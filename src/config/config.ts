@@ -76,6 +76,12 @@ const config = convict({
     default: '',
     env: 'JWT_SECRET',
   },
+  USE_SECURITY: {
+    doc: 'Use security layer',
+    format: Boolean,
+    default: false,
+    env: 'USE_SECURITY',
+  },
 })
 
 config.set('APP_VERSION', version)

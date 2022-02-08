@@ -1,3 +1,4 @@
+import { SecurityLayer } from '@/config/SecurityLayer'
 import { LoginDto } from '@/dto/login.dto'
 import { CreateUserDto } from '@/users/dto/create-user.dto'
 import { User } from '@/users/interfaces/user.interface'
@@ -10,6 +11,7 @@ import {
   NotFoundException,
   Post,
 } from '@nestjs/common'
+import { KeyLike } from 'crypto'
 import { AppService } from './app.service'
 import { AuthService } from './auth/auth.service'
 
@@ -28,6 +30,7 @@ export class AppController {
 
   @Post('/login')
   async login(@Body() user: LoginDto) {
+    console.log(user)
     const loggedUser = await this.authService.validateUser(
       user.username,
       user.password,
@@ -53,5 +56,10 @@ export class AppController {
     }
 
     return this.usersService.create(user)
+  }
+
+  @Get('/publicKey')
+  async getPublicKey(): Promise<{ serverKey: KeyLike }> {
+    return { serverKey: SecurityLayer.getInstance().getPublicKey() }
   }
 }

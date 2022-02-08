@@ -1,0 +1,1 @@
+{"containerId":"","sortNum":0,"headers":[{"name":"Accept","value":"*/*"},{"name":"User-Agent","value":"Thunder Client (https://www.thunderclient.com)"}],"colId":"history","name":"{{URL}}/publicKey","url":"{{URL}}/publicKey","method":"GET","modified":"2022-02-08T09:47:06.556Z","created":"2022-02-08T09:46:56.485Z","_id":"b3c2a033-677b-444a-831c-1b0f8cf8163a","params":[],"tests":[]}
