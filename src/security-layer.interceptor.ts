@@ -23,30 +23,29 @@ export class SecurityLayerInterceptor implements NestInterceptor {
 
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
     const request = context.switchToHttp().getRequest()
-    const { publicKey = '', sign = '' } = request.headers
+    const response = context.switchToHttp().getResponse()
+    const { sign = '' } = request.headers
+    const { publicKey, data } = request.body
     const handlerName = context.getHandler().name
-    console.log(handlerName, request.body, request.headers)
-    console.log(typeof request.body)
 
     if (handlerName === 'getPublicKey') {
       return next.handle()
     }
 
-    if (
-      request.body &&
-      !this.security.check(publicKey, sign, Buffer.from(request.body))
-    ) {
+    if (data && !this.security.check(publicKey, sign, Buffer.from(data.data))) {
       throw new NotAcceptableException('Cannot check body content')
     }
-    const body = this.security.decrypt(request.body)
-    console.log(body)
+    const body = this.security.decrypt(Buffer.from(data.data))
+    request.body = body
     return next.handle().pipe(
       map((data: Record<string, any>) => {
-        console.log(data)
         const encryptedData = this.security.encrypt(publicKey, data)
         const sign = this.security.sign(encryptedData)
-        request.headers.sign = sign
-        return encryptedData
+        response.setHeader('sign', sign)
+        return {
+          publicKey: this.security.getPublicKey(),
+          data: encryptedData,
+        }
       }),
     )
   }

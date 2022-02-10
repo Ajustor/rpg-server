@@ -30,7 +30,6 @@ export class AppController {
 
   @Post('/login')
   async login(@Body() user: LoginDto) {
-    console.log(user)
     const loggedUser = await this.authService.validateUser(
       user.username,
       user.password,
