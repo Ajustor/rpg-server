@@ -32,7 +32,10 @@ export class SecurityLayerInterceptor implements NestInterceptor {
       return next.handle()
     }
 
-    if (data && !this.security.check(publicKey, sign, Buffer.from(data.data))) {
+    if (
+      !sign ||
+      (data && !this.security.check(publicKey, sign, Buffer.from(data.data)))
+    ) {
       throw new NotAcceptableException('Cannot check body content')
     }
     const body = this.security.decrypt(Buffer.from(data.data))
